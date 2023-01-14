@@ -26,11 +26,18 @@ export default function Loading() {
 				<BoxLoading
 					size="large"
 					speed={0.6}
-					color={color == 1 ? "rgba(126, 177, 241, 1)" : "rgba(214, 66, 186, 1)"}
+					color={
+						color == 1
+							? "rgba(126, 177, 241, 1)"
+							: "rgba(214, 66, 186, 1)"
+					}
 				/>
 			</div>
 
-			<Typography variant="h6" style={{ paddingLeft: 20, paddingRight: 20 }}>
+			<Typography
+				variant="h6"
+				style={{ paddingLeft: 20, paddingRight: 20, marginTop: -60 }}
+			>
 				À LA RECHERCHE D'UN NOM POUR VOTRE BÉBÉ{points}
 			</Typography>
 		</div>

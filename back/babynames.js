@@ -4,41 +4,25 @@ const fs = require("fs");
 const axios = require("axios");
 
 router.get("/api/ajoutNoms", async function (req, res) {
-	fs.readFile(
-		"C:/Users/houss/OneDrive/Bureau/j2ee projet/names.html",
-		"utf8",
-		async (err, data) => {
-			if (err) {
-				console.error(err);
-				return;
-			}
+	let rawdata = await fs.readFileSync(
+		"C:/Users/houss/OneDrive/Bureau/projets/babynames/back/names.json"
+	);
+	let data = JSON.parse(rawdata);
+	data.map(async (value) => {
+		const options = {
+			method: "GET",
+			url: "https://api.genderize.io/?name=" + value.name,
+		};
 
-			const restriction = [
-				"",
-				"Mme",
-				"Oueslati",
-				"Nas",
-				"Mohammed Haifa",
-				"Im&#xE8;ne",
-				"Med",
-			];
-
-			var start = 0;
-			while (data.indexOf(`href="forenames/`, start) > -1) {
-				var index1 = data.indexOf(`href="forenames/`, start);
-				var index2 = data.indexOf(">", index1);
-				var nom = data.substring(index2 + 1, data.indexOf(`<`, index2));
-
-				if (!restriction.includes(nom)) {
-					const options = {
-						method: "GET",
-						url: "https://api.genderize.io/?name=" + nom,
-					};
-
+		await pool.query(
+			"SELECT * from public.names where name = $1",
+			[value.name],
+			async (err, result) => {
+				if (result.rowCount > 0) {
 					await axios.request(options).then(async function (response) {
 						await pool.query(
 							"INSERT INTO public.names(name, gender) VALUES ($1, $2)",
-							[nom, response.data.gender == "male" ? "m" : "f"],
+							[value.name, response.data.gender == "male" ? "m" : "f"],
 							async (err, result) => {
 								if (err) {
 									console.log(err.toString());
@@ -48,11 +32,9 @@ router.get("/api/ajoutNoms", async function (req, res) {
 						);
 					});
 				}
-
-				start = index2;
 			}
-		}
-	);
+		);
+	});
 });
 
 router.post("/api/bestNames", (req, res) => {
@@ -78,16 +60,20 @@ const get_best_names = async (data, names, gender) => {
 	});
 
 	for (row of data) {
-		if (gender == row.gender || gender == null) {
-			var count = 0;
+		if (!names.includes(row.name.toLowerCase()))
+			if (gender == row.gender || gender == null) {
+				var count = 0;
 
-			for (character of name) {
-				if (row.name.toUpperCase().indexOf(character.toUpperCase()) > -1) count++;
+				for (character of name) {
+					if (row.name.toUpperCase().indexOf(character.toUpperCase()) > -1) count++;
+				}
+				if (row.gender == "m")
+					top5NamesM.push({
+						name: row.name,
+						count: count - row.name.length,
+					});
+				else top5NamesF.push({ name: row.name, count: count - row.name.length });
 			}
-			if (row.gender == "m")
-				top5NamesM.push({ name: row.name, count: count - row.name.length });
-			else top5NamesF.push({ name: row.name, count: count - row.name.length });
-		}
 	}
 
 	await top5NamesM.sort(function compareFn(a, b) {

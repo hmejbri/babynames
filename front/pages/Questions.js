@@ -1,7 +1,7 @@
 import { Container } from "@material-ui/core";
-import Formulaire from "../components/formulaire";
+import Tree from "../components/tree";
 
-export default function Home() {
+export default function Questions() {
 	const backgroundColor = "#D5F5F1";
 	const textColor = "#67567D";
 	const secondaryColor = "#FF955E";
@@ -11,11 +11,11 @@ export default function Home() {
 			<div className="bgImage"></div>
 			<div className="bgContent">
 				<Container>
-					<Formulaire
+					<Tree
 						backgroundColor={backgroundColor}
 						textColor={textColor}
 						secondaryColor={secondaryColor}
-					></Formulaire>
+					></Tree>
 				</Container>
 			</div>
 		</div>

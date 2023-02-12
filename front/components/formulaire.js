@@ -5,11 +5,7 @@ import { Typography } from "@mui/material";
 import { Button, Container } from "@material-ui/core";
 import Card from "react-bootstrap/Card";
 
-export default function Formulaire({
-	backgroundColor,
-	textColor,
-	secondaryColor,
-}) {
+export default function Formulaire({ backgroundColor, textColor, secondaryColor }) {
 	return (
 		<div>
 			<center>
@@ -19,7 +15,6 @@ export default function Formulaire({
 					style={{
 						background: "rgba(0, 0, 0,0)",
 						marginLeft: "-2em",
-						marginTop: "1em",
 					}}
 				>
 					<Container style={{ paddingTop: "3em" }}>
@@ -83,10 +78,8 @@ export default function Formulaire({
 										</Card.Title>
 										<hr />
 										<Card.Text style={{ color: textColor }}>
-											Vous pouvez obtenir un nom pour
-											votre bébé en utilisant les noms des
-											parents pour une correspondance
-											parfaite.
+											Vous pouvez obtenir un nom pour votre bébé en utilisant
+											les noms des parents pour une correspondance parfaite.
 										</Card.Text>
 									</Card.Body>
 								</Card>
@@ -118,9 +111,8 @@ export default function Formulaire({
 										</Card.Title>
 										<hr />
 										<Card.Text style={{ color: textColor }}>
-											Vous pouvez obtenir un nom pour
-											votre bébé qui ressemble à n'importe
-											quel autre nom(s).
+											Vous pouvez obtenir un nom pour votre bébé qui ressemble
+											à n'importe quel autre nom(s).
 										</Card.Text>
 									</Card.Body>
 								</Card>

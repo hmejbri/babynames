@@ -1,12 +1,7 @@
 import { Container, Grid, Typography } from "@material-ui/core";
 import { Paper } from "@mui/material";
 import { useEffect, useState } from "react";
-import {
-	FacebookIcon,
-	FacebookMessengerIcon,
-	FacebookShareCount,
-	TwitterIcon,
-} from "react-share";
+import { FacebookIcon, FacebookMessengerIcon, FacebookShareCount, TwitterIcon } from "react-share";
 import Loading from "../components/loading";
 import NamesList from "../components/namesList";
 
@@ -56,9 +51,7 @@ export default function Resultat() {
 
 							<hr />
 							<div>
-								<Typography variant="button">
-									Partager votre résultat :
-								</Typography>
+								<Typography variant="button">Partager votre résultat :</Typography>
 								&nbsp;&nbsp;
 								<FacebookIcon size={25} round={true} />
 								&nbsp;&nbsp;
